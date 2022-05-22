@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>ESPM PI4</title>
+    </head>
+    <script>
+
+        list = () => {
+            fetch("http://localhost:8090/moeda", {
+                method : "GET",
+                headers: {'Content-type': 'application/json'}
+            }).then(response => response.json()
+            ).then(data => {
+                    var table = document.getElementById('list');
+                    var s = '<table>';
+                    data.forEach(item => {
+                        s += '<tr><td>' + item.nome + '</td><td>' + item.simbolo + '</td></tr>';                    
+                    });
+                    table.innerHTML = s + '</table>';
+                }
+            );
+        }
+
+        add = () => {
+            var data = {
+                "nome": document.getElementById("nome").value,
+                "simbolo": document.getElementById("simbolo").value
+            };
+            fetch("http://localhost:8090/moeda", {
+                method : "POST",
+                body: JSON.stringify(data),
+                headers: {'Content-type': 'application/json'}
+            }).then(
+                response => {
+                    console.log(response.status);
+                }
+            );
+        }
+
+    </script>
+<body>
+    <div id="form">
+        <table>
+            <tr><td>Nome</td><td><input id="nome" type="text"></td></tr>
+            <tr><td>Símbolo</td><td><input id="simbolo" type="text"></td></tr>
+            <tr><td><button onclick="add();">Add</button></td></tr>
+            <tr><td><button onclick="list();">List</button></td></tr>
+        </table>        
+    </div>
+    <div id="list"></div>
+
+</body>
+</html>
