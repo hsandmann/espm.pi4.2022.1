@@ -1,0 +1,17 @@
+<html>
+<body>
+    <script type="text/javascript">
+        // do something with obj
+    </script>
+    <ul>
+        <% coins.forEach(function(coin) { %>
+            <li>
+                <strong><%= coin.name %></strong>
+                preço <%= coin.price %>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <iframe><%- include('./chart'); %></iframe>
+</body>
+</html>
